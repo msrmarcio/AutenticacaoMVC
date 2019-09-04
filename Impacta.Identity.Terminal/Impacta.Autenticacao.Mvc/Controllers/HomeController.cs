@@ -110,13 +110,13 @@ namespace Impacta.Autenticacao.Mvc.Controllers
 		{
 			if (AutenticarUsuario(usuario))
 			{
-				return View("AreaRestrita");
+                return RedirectToAction("AreaRestrita", "Home");
 			}
 			else
 			{
-				return View("Inicio");
-			}
-		}
+                return RedirectToAction("Inicio", "Home");
+            }
+        }
 
 		private bool AutenticarUsuario(Usuario usuario)
 		{
@@ -133,7 +133,8 @@ namespace Impacta.Autenticacao.Mvc.Controllers
 				var gerenciadorDeAutenticacao = HttpContext.GetOwinContext().Authentication;
 
 				var identidade = usuarioGerenciador.CreateIdentity(identidadeUsuario,
-				DefaultAuthenticationTypes.ApplicationCookie);
+				                    DefaultAuthenticationTypes.ApplicationCookie);
+
 				gerenciadorDeAutenticacao.SignIn(
 					new AuthenticationProperties()
 						{ IsPersistent = false },identidade);
@@ -151,5 +152,15 @@ namespace Impacta.Autenticacao.Mvc.Controllers
 			// retorna o resutlado
 			return retorno;
 		}
+
+        public ActionResult Logout()
+        {
+            var gerenciadorAutenticacao =
+                HttpContext.GetOwinContext().Authentication;
+
+            gerenciadorAutenticacao.SignOut();
+
+            return RedirectToAction("LoginView", "Home");
+        }
 	}
 }

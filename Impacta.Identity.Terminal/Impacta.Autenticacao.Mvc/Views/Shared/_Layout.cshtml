@@ -8,27 +8,58 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Alunos MVC Autenticação Ltda", "Inicio", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Inicio", "Home")</li>
-                    <li>@Html.ActionLink("Area Livre", "AreaLivre", "Home")</li>
-                    <li>@Html.ActionLink("Area Restrita", "AreaRestrita", "Home")</li>
-                    <li>@Html.ActionLink("Login", "LoginView", "Home")</li>
-                  
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">SKY TECH </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                <li>@Html.ActionLink("Inicio", "Inicio", "Home", null, new { @class = "nav-link" })</li>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Quem Somos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Produtos e Serviços</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Nossos Serviços</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Desenvolvimento Sistemas</a>
+                        <a class="dropdown-item" href="#">Automações / Bots</a>
+                        <a class="dropdown-item" href="#">Scrum - Treinamento e Cosnultoria</a>
+                        <a class="dropdown-item" href="#">Treinamentos "In Company"</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                </li>
+                <li>@Html.ActionLink("Area Livre", "AreaLivre", "Home", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Area Restrita", "AreaRestrita", "Home", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Fale Conosco</a>
+                </li>
+                @if (System.Web.HttpContext.Current.User.Identity.Name == "")
+    {
+            <li>@Html.ActionLink("Login", "LoginView", "Home", null, new { @class = "nav-link" })</li>
+
+}
+else
+{
+            <li class="nav-item">@Html.ActionLink("Olá " + HttpContext.Current.User.Identity.Name + " - Sair", "LOGOUT", "Home", null, new { @class = "nav-link" })</li>
+}
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Pesquisar</button>
+            </form>
         </div>
-    </div>
+    </nav>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
